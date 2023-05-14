@@ -28,7 +28,7 @@ class PortfolioPage extends React.Component {
     )
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ gallery: data[0].acf.photos });
+        this.setState({ gallery: data[0].acf.photos.map((p) => p.id) });
         this.createUrlArray();
       });
   }
