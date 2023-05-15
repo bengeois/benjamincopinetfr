@@ -4,31 +4,23 @@ import { Link } from "react-router-dom";
 import { Waypoint } from "react-waypoint";
 import "./about.scss";
 
-class AboutPage extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      revield: false,
-    };
-  }
+const AboutPage = () => {
+  const [revield, setRevield] = React.useState(false);
 
-  handleWaypoint = () => {
-    this.setState((prevState) => ({
-      revield: true,
-    }));
+  const handleWaypoint = () => {
+    setRevield(true);
   };
 
-  render() {
-    return (
+  return (
       <div className="about flex-c">
-        <div className={`letters ${this.state.revield ? "show" : ""}`}>
+        <div className={`letters ${revield ? "show" : ""}`}>
           Photographe.
         </div>
         <div className="backround" />
         <div
-          className={`about-text flex-c ${this.state.revield ? "show" : ""}`}
+          className={`about-text flex-c ${revield ? "show" : ""}`}
         >
-          <Waypoint onEnter={this.handleWaypoint} />
+          <Waypoint onEnter={() => handleWaypoint()} />
           <h1 className="title">A propos</h1>
           <h2>Enchanté, je m'appelle Benjamin Copinet.</h2>
           <p>
@@ -55,13 +47,12 @@ class AboutPage extends React.Component {
         <div className="about-image-area flex-c">
           {/* <img
             src=""
-            className={`about-img ${this.state.revield ? "show" : ""}`}
+            className={`about-img ${revield ? "show" : ""}`}
             alt="benjamin-copinet-portrait"
           /> */}
         </div>
       </div>
-    );
-  }
+  );
 }
 
 export default AboutPage;

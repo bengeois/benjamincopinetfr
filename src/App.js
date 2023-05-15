@@ -38,16 +38,12 @@ class App extends React.Component {
           <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
         </Helmet>
         <Header />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            component={() => <HomePage handleClick={this.handleClick} />}
-          />
-          <Route exact path="/portfolio/:slug" component={PortfolioPage} />
-          <Route path="/about" component={AboutPage} />
-          <Route path="/contact" component={ContactPage} />
-        </Routes>
+          <Routes>
+            <Route exact path="/" element={<HomePage/>} />
+            <Route exact path="/portfolio/:slug" element={<PortfolioPage />} />
+            <Route path="/about" element={<AboutPage/>} />
+            <Route path="/contact" element={<ContactPage/>} />
+          </Routes>
       </div>
     );
   }
