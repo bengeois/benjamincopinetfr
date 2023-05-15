@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header/header.cmp";
 import AboutPage from "./pages/about/about.cmp";
@@ -38,16 +38,12 @@ class App extends React.Component {
           <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
         </Helmet>
         <Header />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            component={() => <HomePage handleClick={this.handleClick} />}
-          />
-          <Route exact path="/portfolio/:slug" component={PortfolioPage} />
-          <Route path="/about" component={AboutPage} />
-          <Route path="/contact" component={ContactPage} />
-        </Switch>
+          <Routes>
+            <Route exact path="/" element={<HomePage/>} />
+            <Route exact path="/portfolio/:slug" element={<PortfolioPage />} />
+            <Route path="/about" element={<AboutPage/>} />
+            <Route path="/contact" element={<ContactPage/>} />
+          </Routes>
       </div>
     );
   }

@@ -1,76 +1,65 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { FullPage, Slide } from "react-full-page";
 import Hero from "../../components/hero/hero.cmp";
 import ItemHome from "../../components/item-home/item-home.cmp";
 import "./homepage.scss";
 
-class HomePage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      galeries: [],
-    };
-  }
+const HomePage = () => {
+  const [galeries, setGaleries] = useState([]);
 
-  componentDidMount() {
-    return fetch(
+  useEffect(() => {
+      fetch(
       "https://www.api.benjamincopinet.fr/wp-json/wp/v2/galerie?_embed"
-    )
+      )
       .then((response) => response.json())
       .then((data) => {
-        const galeries = data.map((galerie) => {
-          return {
-            id: galerie.id,
-            slug: galerie.slug,
-            title: galerie.title.rendered,
-            subtitle: galerie.title.rendered,
-            imageUrl: galerie._embedded["wp:featuredmedia"]["0"].source_url,
-            revield: false,
-          };
-        });
-        this.setState({
-          galeries: galeries,
-        });
+          const galeries = data.map((galerie) => {
+              return {
+                  id: galerie.id,
+                  slug: galerie.slug,
+                  title: galerie.title.rendered,
+                  subtitle: galerie.title.rendered,
+                  imageUrl: galerie._embedded["wp:featuredmedia"]["0"].source_url,
+                  revield: false,
+              };
+          });
+          setGaleries(galeries);
       });
-  }
+  }, []);
 
-  handleWaypoint = (index, action) => {
-    this.setState((state) => {
-      const list = state.galeries.map((item, i) => {
-        if (index === i) {
-          if (action === "enter") {
-            return (item.revield = true);
-          } else if (action === "leave") {
-            return (item.revield = false);
+  const handleWaypoint = (index, action) => {
+      setGaleries(
+      galeries.map((item, i) => {
+          let r = item.revield;
+          if (index === i) {
+              if (action === "enter") {
+                  r = true;
+              } else if (action === "leave") {
+                  r = false;
+              }
           }
-        }
-        return item;
-      });
-      return {
-        list,
-      };
-    });
+          return {...item, revield: r};
+      })
+      );
   };
 
-  render() {
-    return (
+  return (
       <FullPage className="fullpage-wrapper">
-        <Slide>
-          <Hero />
-        </Slide>
-        {this.state.galeries.map((item, index) => (
-          <Slide key={item.id}>
-            <ItemHome
-              item={item}
-              handleWaypoint={this.handleWaypoint}
-              reviel={this.state.galeries}
-              index={index}
-            />
+          <Slide>
+            <Hero />
           </Slide>
-        ))}
+              {galeries.map((item, index) => (
+                  <Slide key={item.id}>
+                    <ItemHome
+                      item={item}
+                      handleWaypoint={handleWaypoint}
+                      reviel={galeries}
+                      index={index}
+                    />
+                  </Slide>
+                ))}
       </FullPage>
     );
-  }
 }
 
 export default HomePage;

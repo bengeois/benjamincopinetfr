@@ -6,62 +6,58 @@ import "react-toastify/dist/ReactToastify.css";
 import FormInput from "../../components/form-input/form-input.cmp";
 import "./contact.scss";
 
-class ContactPage extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      name: "",
-      email: "",
-      phone: "",
-      message: "",
-      subject: "",
-    };
-  }
+const ContactPage = () => {
+    const [form, setForm] = React.useState({
+        name: "",
+        email: "",
+        telephone: "",
+        message: "",
+        subject: "",
+    });
 
-  sendEmail = (data) => {
+  const sendEmail = (data) => {
     return new Promise((resolve, reject) => {
       emailjs
-        .sendForm(
-          "benjamincopinetfr",
-          "template_jufwop9",
-          data,
-          "user_Xi8P00Kv0Ne36u3IvN9oA"
-        )
-        .then(
-          (result) => {
-            this.setState({
-              name: "",
-              email: "",
-              phone: "",
-              message: "",
-              subject: "",
-            });
-            resolve();
-          },
-          (error) => {
-            reject();
-          }
-        );
+          .sendForm(
+              "benjamincopinetfr",
+              "template_jufwop9",
+              data,
+              "user_Xi8P00Kv0Ne36u3IvN9oA"
+          )
+          .then(
+              (result) => {
+                setForm({
+                  name: "",
+                  email: "",
+                  telephone: "",
+                  message: "",
+                  subject: "",
+                });
+                resolve();
+              },
+              (error) => {
+                reject();
+              }
+          );
     });
   };
 
-  handleForm = (e) => {
+  const handleForm = (e) => {
     e.preventDefault();
-    toast.promise(this.sendEmail(e.target), {
+    toast.promise(sendEmail(e.target), {
       pending: "Envoi en cours.",
       success: "Le mail a bien été envoyé. 👌",
       error:
-        "Erreur lors de l'envoi. Si le problème persiste, contactez-moi directement à benjamin.copinet@outlook.fr 🤯",
+          "Erreur lors de l'envoi. Si le problème persiste, contactez-moi directement à benjamin.copinet@outlook.fr 🤯",
     });
   };
 
-  handleChange = (e) => {
+  const handleChange = (e) => {
     const { value, name } = e.target;
-    this.setState({ [name]: value });
+    setForm({ ...form, [name]: value });
   };
 
-  render() {
-    return (
+  return (
       <div className="contact flex-c">
         <div className="contact-backround" />
         <div className="contact-content flex-c">
@@ -72,11 +68,10 @@ class ContactPage extends React.Component {
               <p>
                 <FaEnvelope className="react-icons" />
                 <a
-                  href="mailto:benjamin.copinet@outlook.fr"
-                  target="_blank"
-                  rel="noreferrer"
+                    href="mailto:benjamin.copinet@outlook.fr"
+                    target="_blank"
+                    rel="noreferrer"
                 >
-                  {" "}
                   benjamin.copinet@outlook.fr
                 </a>
               </p>
@@ -85,7 +80,7 @@ class ContactPage extends React.Component {
               </p>
             </div>
           </div>
-          <form className="contact-form flex-c" onSubmit={this.handleForm}>
+          <form className="contact-form flex-c" onSubmit={handleForm}>
             <legend>
               <h2>
                 Remplissez le formulaire et je reviendrai vers vous dès que
@@ -93,53 +88,52 @@ class ContactPage extends React.Component {
               </h2>
             </legend>
             <FormInput
-              name="name"
-              type="text"
-              placeholder="Nom"
-              value={this.state.name}
-              handleChange={this.handleChange}
-              required
+                name="name"
+                type="text"
+                placeholder="Nom"
+                value={form.name}
+                handleChange={handleChange}
+                required
             />
             <FormInput
-              name="subject"
-              type="text"
-              placeholder="Sujet"
-              value={this.state.subject}
-              handleChange={this.handleChange}
-              required
+                name="subject"
+                type="text"
+                placeholder="Sujet"
+                value={form.subject}
+                handleChange={handleChange}
+                required
             />
             <FormInput
-              name="email"
-              type="email"
-              placeholder="Email"
-              value={this.state.email}
-              handleChange={this.handleChange}
-              required
+                name="email"
+                type="email"
+                placeholder="Email"
+                value={form.email}
+                handleChange={handleChange}
+                required
             />
             <FormInput
-              name="phone"
-              type="number"
-              placeholder="Téléphone"
-              value={this.state.phone}
-              handleChange={this.handleChange}
-              required
+                name="telephone"
+                type="number"
+                placeholder="Téléphone"
+                value={form.telephone}
+                handleChange={handleChange}
+                required
             />
             <FormInput
-              name="message"
-              type="text"
-              placeholder="Message"
-              value={this.state.message}
-              handleChange={this.handleChange}
-              textarea="true"
-              required
+                name="message"
+                type="text"
+                placeholder="Message"
+                value={form.message}
+                handleChange={handleChange}
+                textarea="true"
+                required
             />
             <input className="contact-button" type="submit" value="ENVOYER" />
           </form>
         </div>
         <ToastContainer />
       </div>
-    );
-  }
-}
+  );
 
+}
 export default ContactPage;
