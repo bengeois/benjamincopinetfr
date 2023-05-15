@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Header from "./components/header/header.cmp";
 import AboutPage from "./pages/about/about.cmp";
@@ -38,7 +38,7 @@ class App extends React.Component {
           <link rel="icon" type="image/png" href="favicon.ico" sizes="16x16" />
         </Helmet>
         <Header />
-        <Switch>
+        <Routes>
           <Route
             exact
             path="/"
@@ -47,7 +47,7 @@ class App extends React.Component {
           <Route exact path="/portfolio/:slug" component={PortfolioPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/contact" component={ContactPage} />
-        </Switch>
+        </Routes>
       </div>
     );
   }
