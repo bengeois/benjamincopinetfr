@@ -18,7 +18,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^8.0.3",
     "react-waypoint": "^10.3.0",
-    "sass": "^1.62.1",
+    "sass": "^1.63.6",
     "web-vitals": "^3.3.2"
   },
   "scripts": {
