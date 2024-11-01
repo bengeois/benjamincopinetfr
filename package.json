@@ -19,7 +19,7 @@
     "react-toastify": "^10.0.5",
     "react-waypoint": "^10.3.0",
     "sass": "^1.79.4",
-    "web-vitals": "^4.2.3"
+    "web-vitals": "^4.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
