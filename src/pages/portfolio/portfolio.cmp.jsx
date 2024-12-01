@@ -28,6 +28,7 @@ const PortfolioPage = () => {
     }, [slug]);
 
     useEffect(() => {
+        if (gallery.length === 0) return;
         fetch(
         `https://api.benjamincopinet.fr/wp-json/wp/v2/media?per_page=100&include=${gallery}`
         )
