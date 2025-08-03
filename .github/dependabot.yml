@@ -8,5 +8,3 @@ updates:
     labels:
       - "dependencies"
       - "automated pr"
-    reviewers:
-      - "bengeois"
