@@ -8,3 +8,13 @@ updates:
     labels:
       - "dependencies"
       - "automated pr"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    groups:
+      npm-packages:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
